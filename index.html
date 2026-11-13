@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Interyer Dizayni</title>
+
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #menu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            display: flex;
+            gap: 8px;
+        }
+
+        button {
+            padding: 10px 14px;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="menu">
+    <button onclick="showModel('chair')">Stul</button>
+    <button onclick="showModel('table')">Stol</button>
+    <button onclick="showModel('sofa')">Divan</button>
+    <button onclick="clearModel()">Tozalash</button>
+</div>
+
+<a-scene background="color: #87CEEB">
+
+    <a-assets>
+        <a-asset-item id="chair" src="assets/models/chair.glb"></a-asset-item>
+        <a-asset-item id="table" src="assets/models/table.glb"></a-asset-item>
+        <a-asset-item id="sofa" src="assets/models/sofa.glb"></a-asset-item>
+    </a-assets>
+
+    <a-entity id="furniture"
+        gltf-model="#chair"
+        position="0 0 -3"
+        scale="1 1 1">
+    </a-entity>
+
+    <a-plane
+        position="0 -0.1 -3"
+        rotation="-90 0 0"
+        width="10"
+        height="10"
+        color="#999999">
+    </a-plane>
+
+    <a-camera position="0 1.6 0"></a-camera>
+
+</a-scene>
+
+<script>
+    function showModel(model) {
+        const furniture = document.querySelector('#furniture');
+        furniture.setAttribute('gltf-model', '#' + model);
+    }
+
+    function clearModel() {
+        const furniture = document.querySelector('#furniture');
+        furniture.removeAttribute('gltf-model');
+    }
+</script>
+
+</body>
+</html>
